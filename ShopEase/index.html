@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ShopEase - Online Shopping Website</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+<!-- Navigation Bar -->
+<header class="navbar">
+    <div class="logo">
+        <i class="fas fa-shopping-bag"></i>
+        ShopEase
+    </div>
+    <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact Us</a>
+        <a href="#login">Login / Signup</a>
+    </nav>
+    <div class="nav-icons">
+        <button onclick="showCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count">0</span>
+        </button>
+        <button onclick="showWishlist()">
+            <i class="fas fa-heart"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Navigation Drawer -->
+<button class="menu-btn" onclick="toggleDrawer()">
+    <i class="fas fa-bars"></i>
+    Menu
+</button>
+<div id="drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="drawer" id="navigation-drawer">
+    <button class="close-btn" onclick="toggleDrawer()">
+        <i class="fas fa-times"></i>
+    </button>
+    <h2>My Account</h2>
+    <a href="#home">Home</a>
+    <a href="#login">My Profile</a>
+    <a href="#orders">My Orders</a>
+    <a href="#wishlist">Wishlist</a>
+    <a href="#settings">Settings</a>
+    <a href="#login" onclick="logout()">Logout</a>
+</aside>
+
+<!-- Search Bar -->
+<section class="search-section">
+    <input
+        type="text"
+        id="search-input"
+        placeholder="Search for products..."
+        oninput="searchProducts()">
+    <button onclick="searchProducts()">
+        <i class="fas fa-search"></i>
+        Search
+    </button>
+</section>
+
+<!-- Promotional Image Slideshow -->
+<section class="slider">
+    <div class="slides">
+        <!-- First Slide -->
+        <div class="slide active">
+            <img src="images/banners/banner1.jpg"
+                 alt="Shopping Sale">
+            <div class="slide-content">
+                <h1>Big Shopping Sale!</h1>
+                <p>Discover amazing products at amazing prices.</p>
+                <a href="#products">Shop Now</a>
+            </div>
+        </div>
+        <!-- Second Slide -->
+        <div class="slide">
+            <img src="images/banners/banner2.jpg"
+                 alt="Fashion Sale">
+            <div class="slide-content">
+                <h1>Fashion Collection</h1>
+                <p>Upgrade your style with our latest collection.</p>
+                <a href="#products">Explore Now</a>
+            </div>
+        </div>
+        <!-- Third Slide -->
+        <div class="slide">
+            <img src="images/banners/banner3.jpg"
+                 alt="Electronics Sale">
+            <div class="slide-content">
+                <h1>Latest Electronics</h1>
+                <p>Get your favorite gadgets at special prices.</p>
+                <a href="#products">Buy Now</a>
+            </div>
+        </div>
+    </div>
+    <!-- Previous Button -->
+    <button onclick="changeSlide(-1)">&#10094;</button>
+    <!-- Next Button -->
+    <button onclick="changeSlide(1)">&#10095;</button>
+    <!-- Navigation Dots -->
+    <div class="dots">
+        <span onclick="currentSlide(0)"></span>
+        <span onclick="currentSlide(1)"></span>
+        <span onclick="currentSlide(2)"></span>
+    </div>
+</section>
+<section id="wishlist" class="section" style="display: none;">
+    <h2>My Wishlist</h2>
+    <div id="wishlist-items"></div>
+</section>
+<!-- Welcome Banner -->
+<section class="welcome-banner" id="home">
+    <h1>Welcome to ShopEase!</h1>
+    <p>
+        Your one-stop destination for amazing
+        online shopping deals.
+    </p>
+    <a href="#products" class="shop-btn">
+        Start Shopping
+    </a>
+</section>
+
+<!-- Product Categories -->
+<section class="section" id="categories">
+    <h2>Shop By Categories</h2>
+    <div class="category-grid">
+        <div class="category-card" onclick="filterCategory('Electronics')">
+            <img src="images/categories/electronics.jpg" alt="Electronics">
+            <h3>Electronics</h3>
+        </div>
+        <div class="category-card" onclick="filterCategory('Clothing')">
+            <img src="images/categories/clothing.jpg" alt="Clothing">
+            <h3>Clothing</h3>
+        </div>
+        <div class="category-card" onclick="filterCategory('Shoes')">
+            <img src="images/categories/shoes.jpg" alt="Shoes">
+            <h3>Shoes</h3>
+        </div>
+        <div class="category-card" onclick="filterCategory('Accessories')">
+            <img src="images/categories/accessories.jpg" alt="Accessories">
+            <h3>Accessories</h3>
+        </div>
+        <div class="category-card" onclick="filterCategory('Home Appliances')">
+            <img src="images/categories/home.jpg" alt="Home Appliances">
+            <h3>Home Appliances</h3>
+        </div>
+    </div>
+</section>
+
+<!-- Product Display -->
+<section class="section" id="products">
+    <h2>Our Popular Products</h2>
+    <div class="product-grid">
+        <!-- Product 1 -->
+        
+        <div class="product-card">
+    <img src="images/products/phone.jpg" alt="Smartphone">
+    <h3>Smartphone</h3>
+    <p class="price">Rs. 45,000</p>
+    <p class="rating">★★★★★</p>
+
+    <button onclick="addToCart(1)">Add to Cart</button>
+
+    <button onclick="addToWishlist(1)">
+        <i class="fas fa-heart"></i> Add to Wishlist
+    </button>
+
+    <button onclick="showProductDetails(1)">View Details</button>
+</div>
+        <!-- Product 2 -->
+        <div class="product-card">
+            <img src="images/products/headphones.jpg" alt="Headphones">
+            <h3>Wireless Headphones</h3>
+            <p class="price">Rs. 5,000</p>
+            <p class="rating">★★★★★</p>
+            <button onclick="addToCart(2)">Add to Cart</button>
+            <button onclick="addToWishlist(2)">
+        <i class="fas fa-heart"></i> Add to Wishlist
+    </button>
+            <button onclick="showProductDetails(2)">View Details</button>
+        </div>
+        <!-- Product 3 -->
+        <div class="product-card">
+            <img src="images/products/sneakers.jpg" alt="Sneakers">
+            <h3>Casual Sneakers</h3>
+            <p class="price">Rs. 7,500</p>
+            <p class="rating">★★★★☆</p>
+            <button onclick="addToCart(3)">Add to Cart</button>
+            <button onclick="addToWishlist(3)">
+        <i class="fas fa-heart"></i> Add to Wishlist
+    </button>
+            <button onclick="showProductDetails(3)">View Details</button>
+        </div>
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img src="images/products/handbag.jpg" alt="Handbag">
+            <h3>Stylish Handbag</h3>
+            <p class="price">Rs. 3,500</p>
+            <p class="rating">★★★★★</p>
+            <button onclick="addToCart(4)">Add to Cart</button>
+            <button onclick="addToWishlist(4)">
+        <i class="fas fa-heart"></i> Add to Wishlist
+    </button>
+            <button onclick="showProductDetails(4)">View Details</button>
+        </div>
+        <!-- Product 5 -->
+        <div class="product-card">
+            <img src="images/products/watch.jpg" alt="Watch">
+            <h3>Smart Watch</h3>
+            <p class="price">Rs. 8,000</p>
+            <p class="rating">★★★★☆</p>
+            <button onclick="addToCart(5)">Add to Cart</button>
+            <button onclick="addToWishlist(5)">
+        <i class="fas fa-heart"></i> Add to Wishlist
+    </button>
+            <button onclick="showProductDetails(5)">View Details</button>
+        </div>
+        <!-- Product 6 -->
+        <div class="product-card">
+            <img src="images/products/blender.jpg" alt="Blender">
+            <h3>Kitchen Blender</h3>
+            <p class="price">Rs. 6,000</p>
+            <p class="rating">★★★★★</p>
+            <button onclick="addToCart(6)">Add to Cart</button>
+            <button onclick="addToWishlist(6)">
+        <i class="fas fa-heart"></i> Add to Wishlist
+    </button>
+            <button onclick="showProductDetails(6)">View Details</button>
+        </div>
+    </div>
+</section>
+
+
+<!-- Featured Products and Special Offers -->
+<section class="section" id="featured">
+    <h2>Featured Products</h2>
+    <div class="featured-banner">
+        <h3>Special Shopping Deals!</h3>
+        <p>Get amazing discounts on your favourite products.</p>
+        <a href="#products" class="shop-btn">Explore Products</a>
+    </div>
+    <h2>Special Offers</h2>
+    <div class="offers-container">
+        <div class="offer-card">
+            <h3>Electronics Sale</h3>
+            <p>Get up to 20% OFF on selected electronics.</p>
+            <a href="#products">Shop Now</a>
+        </div>
+        <div class="offer-card">
+            <h3>Fashion Sale</h3>
+            <p>Enjoy up to 30% OFF on clothing and accessories.</p>
+            <a href="#products">Shop Now</a>
+        </div>
+        <div class="offer-card">
+            <h3>Home Appliances</h3>
+            <p>Save up to 15% on selected home appliances.</p>
+            <a href="#products">Shop Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- About Us Section -->
+<section class="section about-section" id="about">
+    <h2>About ShopEase</h2>
+    <p>
+        ShopEase is an online shopping website designed to make
+        shopping simple, convenient, and enjoyable.
+        Customers can explore different product categories,
+        discover amazing deals, and shop for their favourite items
+        in one place.
+    </p>
+</section>
+
+<!-- Contact Us Section -->
+<section class="section contact-section" id="contact">
+    <h2>Contact Us</h2>
+    <p>Have a question? We would love to hear from you!</p>
+    <form id="contact-form" onsubmit="submitContactForm(event)">
+        <input type="text" id="contact-name"
+               placeholder="Enter Your Name" required>
+        <input type="email" id="contact-email"
+               placeholder="Enter Your Email" required>
+        <textarea id="contact-message"
+                  placeholder="Write Your Message"
+                  required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+<!-- Shopping Cart Section -->
+<section class="section cart-section" id="cart">
+    <h2>My Shopping Cart</h2>
+    <div id="cart-items">
+        <p class="empty-cart">
+            Your shopping cart is currently empty.
+        </p>
+    </div>
+    <div class="cart-summary">
+        <h3>Total Bill: Rs. <span id="cart-total">0</span></h3>
+        <button onclick="checkout()">
+            Proceed to Checkout
+        </button>
+    </div>
+</section>
+
+<!-- LOGIN AND SIGNUP SECTION -->
+
+<section id="login" class="section">
+    <h2>Login / Signup</h2>
+    <div class="auth-container">
+        <!-- Login Form -->
+        <div class="auth-box">
+            <h3>Login to ShopEase</h3>
+            <form onsubmit="event.preventDefault(); alert('Login successful!');">
+                <input type="email"
+                       placeholder="Enter your Email"
+                       required>
+                <input type="password"
+                       placeholder="Enter your Password"
+                       required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <!-- Signup Form -->
+        <div class="auth-box">
+            <h3>Create an Account</h3>
+            <form onsubmit="event.preventDefault(); alert('Account created successfully!');">
+                <input type="text"
+                       placeholder="Enter your Name"
+                       required>
+                <input type="email"
+                       placeholder="Enter your Email"
+                       required>
+                <input type="password"
+                       placeholder="Create a Password"
+                       required>
+                <button type="submit">Signup</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-about">
+            <h3>ShopEase</h3>
+            <p>
+                Your one-stop destination for online shopping.
+                Discover quality products at amazing prices.
+            </p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="#home">Home</a>
+            <a href="#categories">Categories</a>
+            <a href="#products">Products</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <div class="footer-contact">
+            <h3>Contact Information</h3>
+            <p>Email: support@shopease.com</p>
+            <p>Phone: +92 300 1234567</p>
+            <p>Location: Pakistan</p>
+        </div>
+        <div class="footer-social">
+            <h3>Follow Us</h3>
+            <a href="https://www.facebook.com/">Facebook</a>
+            <a href="https://www.instagram.com/">Instagram</a>
+            <a href="https://www.youtube.com/">YouTube</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 ShopEase. All Rights Reserved.</p>
+    </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
